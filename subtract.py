@@ -11,7 +11,8 @@ def subtract(filename, params):
                                     FFT, VectorInput)
 
     outfile = os.path.join(
-        os.path.dirname(filename), 'subtract-' + os.path.basename(filename))
+        os.path.dirname(filename),
+        os.path.splitext(os.path.basename(filename))[0] + '-smssubstract.wav')
 
     loader = MonoLoader(filename=filename, sampleRate=params['sampleRate'])
     pool = essentia.Pool()
