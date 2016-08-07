@@ -1,4 +1,4 @@
-# spectral modeling synthesis
+# spectral modelling synthesis
 
 Synthesis tools powered by [essentia](http://essentia.upf.edu/).
 
