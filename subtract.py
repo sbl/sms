@@ -4,6 +4,9 @@ import click
 
 
 def subtract(filename, params):
+    '''
+    Subtract the sinusoidal components as computed by the sinusoidal model.
+    '''
     import os.path
     import essentia
     from essentia.streaming import (MonoLoader, MonoWriter, FrameCutter,
