@@ -1,21 +1,17 @@
-#!/usr/bin/env python
-
+import os.path
 import click
 
+from subprocess import call
 
-def subtract(filename, params):
+
+def subtract(filename, outfile, params):
     '''
     Subtract the sinusoidal components as computed by the sinusoidal model.
     '''
-    import os.path
     import essentia
     from essentia.streaming import (MonoLoader, MonoWriter, FrameCutter,
                                     Windowing, SineModelAnal, SineSubtraction,
                                     FFT, VectorInput)
-
-    outfile = os.path.join(
-        os.path.dirname(filename),
-        os.path.splitext(os.path.basename(filename))[0] + '-smssubstract.wav')
 
     loader = MonoLoader(filename=filename, sampleRate=params['sampleRate'])
     pool = essentia.Pool()
@@ -78,7 +74,13 @@ def cli(filename, framesize, hopsize, samplerate, maxnsines):
         'freqDevOffset': 10,
         'freqDevSlope': 0.001
     }
-    subtract(filename, params)
+    outfile = os.path.join(
+        os.path.dirname('.'),
+        'snd',
+        os.path.splitext(os.path.basename(filename))[0] + '-smssubstract.wav')
+
+    subtract(filename, outfile, params)
+    call(['afplay', outfile])
 
 
 if __name__ == '__main__':

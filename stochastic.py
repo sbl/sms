@@ -52,7 +52,8 @@ def cli(filename, framesize, hopsize, stocf):
     params = {'frameSize': framesize, 'hopSize': hopsize, 'stocf': stocf}
 
     outfile = os.path.join(
-        os.path.dirname(filename),
+        os.path.dirname('.'),
+        'snd',
         os.path.splitext(os.path.basename(filename))[0] + '-stoch.wav')
 
     # process
