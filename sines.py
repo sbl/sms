@@ -70,6 +70,21 @@ def sines(filename, outfile, params):
 @click.option(
     '--maxnsines', default=100, help='maximum number of sines', type=int)
 @click.option(
+    '--thresh',
+    default=-74,
+    help='peaks below this given threshold are not outputted',
+    type=int)
+@click.option(
+    '--freqdevslope',
+    default=0.01,
+    help='peaks below this given threshold are not outputted',
+    type=float)
+@click.option(
+    '--freqdevoffset',
+    default=20,
+    help='minimum frequency deviation at 0Hz',
+    type=int)
+@click.option(
     '--minfreq',
     default=20,
     help='the minimum frequency of the range to evaluate [Hz]',
@@ -79,8 +94,8 @@ def sines(filename, outfile, params):
     default=22050,
     help='the maximum frequency of the range to evaluate [Hz]',
     type=int)
-@click.option('--samplerate', default=44100, help='samplerate', type=int)
-def cli(filename, framesize, hopsize, maxnsines, minfreq, maxfreq, samplerate):
+def cli(filename, framesize, hopsize, samplerate, maxnsines, minfreq, maxfreq,
+        thresh, freqdevslope, freqdevoffset):
     params = {
         'frameSize': framesize,
         'hopSize': hopsize,
@@ -88,10 +103,9 @@ def cli(filename, framesize, hopsize, maxnsines, minfreq, maxfreq, samplerate):
         'maxnSines': maxnsines,
         'minFrequency': minfreq,
         'maxFrequency': maxfreq,
-        'magnitudeThreshold': -74,
-        'minSineDur': 0.02,
-        'freqDevOffset': 10,
-        'freqDevSlope': 0.001
+        'magnitudeThreshold': thresh,
+        'freqDevOffset': freqdevoffset,
+        'freqDevSlope': freqdevslope,
     }
     outfile = os.path.join(
         os.path.dirname('.'), 'snd',
